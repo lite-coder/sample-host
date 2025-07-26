@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <style>
-    .material-icons {
-    &.outlined {
-        font-family: 'Material Icons Outlined';
-    }
-        font-family: 'Material Icons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 24px;
-        line-height: 1;
-        letter-spacing: normal;
-        text-transform: none;
-        display: inline-block;
-        white-space: nowrap;
-        direction: ltr;
-        -webkit-font-feature-settings: 'liga';
-        -webkit-font-smoothing: antialiased;
-        color: #b0bec5;
-        vertical-align: middle;
-    }
-    .icon-btn .material-icons {
-        font-size: 22px;
-        font-weight: 400;
-    }
-    .pane-title-bar .material-icons {
-        font-size: 22px;
-    }
+        /* Highlight selected tree node with theme blue bg and text */
+        .selected-tree-row {
+            /* background: linear-gradient(90deg, #1a73e8 0%, #23272e 100%);
+        border-left: 3px solid #1a73e8; */
+        }
+
+        .selected-tree-row .tree-keyval>span:first-child {
+            color: #1a73e8 !important;
+            font-weight: 600;
+        }
+
+        .material-icons {
+            &.outlined {
+                font-family: 'Material Icons Outlined';
+            }
+
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            color: #b0bec5;
+            vertical-align: middle;
+        }
+
+        .icon-btn .material-icons {
+            font-size: 22px;
+            font-weight: 400;
+        }
+
+        .pane-title-bar .material-icons {
+            font-size: 22px;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Design Studio Tree Viewer</title>
@@ -45,6 +60,7 @@
             align-items: center;
             justify-content: flex-start;
         }
+
         #input-area {
             background: none;
             border-radius: 0;
@@ -60,6 +76,7 @@
             min-height: 520px;
             flex: 1;
         }
+
         #input-area h2 {
             margin-top: 36px;
             margin-bottom: 0;
@@ -77,6 +94,7 @@
             top: 0;
             z-index: 10;
         }
+
         #input-area label {
             font-size: 1.08rem;
             color: #b0bec5;
@@ -84,9 +102,11 @@
             margin-bottom: 8px;
             align-self: flex-start;
         }
+
         #input-area input[type="file"] {
             display: none;
         }
+
         .file-upload {
             display: flex;
             align-items: center;
@@ -99,6 +119,7 @@
             margin-bottom: 18px;
             overflow: hidden;
         }
+
         .file-upload-label {
             display: flex;
             align-items: center;
@@ -112,14 +133,17 @@
             border-right: 1.5px solid #2a2d34;
             transition: background 0.15s;
         }
+
         .file-upload-label:hover {
             background: #353945;
         }
+
         .file-upload-icon {
             margin-right: 8px;
             display: flex;
             align-items: center;
         }
+
         .file-upload-filename {
             flex: 1;
             padding: 0 16px;
@@ -129,6 +153,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         #input-area textarea {
             margin-top: 12px;
             border-radius: 25px;
@@ -144,10 +169,12 @@
             box-shadow: 0 2px 12px #0004;
             outline: none;
         }
+
         #input-area textarea:focus {
             outline: none;
             box-shadow: 0 2px 12px #0004;
         }
+
         #input-area button {
             margin-top: 22px;
             font-size: 16px;
@@ -162,10 +189,12 @@
             box-shadow: none;
             transition: background 0.2s, color 0.2s;
         }
+
         #input-area button:hover {
             background: #1e40af;
             color: #fff;
         }
+
         .or {
             margin: 12px 0;
             color: #b0bec5;
@@ -174,13 +203,18 @@
         }
     </style>
 </head>
+
 <body>
     <h2 style="color: #f0f0f0;font-size: 48px;margin-top: 120px;">Design Studio Tree Viewer</h2>
     <div id="input-area">
         <div class="file-upload">
             <label for="jsonFile" class="file-upload-label">
                 <span class="file-upload-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 16V4M12 16l-4-4m4 4l4-4" stroke="#b0bec5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="16" width="18" height="4" rx="2" fill="#b0bec5"/></svg>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16V4M12 16l-4-4m4 4l4-4" stroke="#b0bec5" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <rect x="3" y="16" width="18" height="4" rx="2" fill="#b0bec5" />
+                    </svg>
                 </span>
                 Choose a file…
             </label>
@@ -188,18 +222,49 @@
             <span class="file-upload-filename" id="fileName">No file chosen</span>
         </div>
         <span class="or">or</span>
-        <textarea id="jsonInput" rows="8" cols="60" placeholder="Paste JSON here..." style="margin-bottom:0;"></textarea>
+        <textarea id="jsonInput" rows="8" cols="60" placeholder="Paste JSON here..."
+            style="margin-bottom:0;"></textarea>
         <button id="loadJsonBtn">Submit</button>
     </div>
-    <div id="page2" style="display:none;flex-direction:column;height:100vh;width:100vw;position:fixed;left:0;top:0;background:#111;z-index:100;">
-        <div class="top-bar" style="display:flex;align-items:center;justify-content:space-between;height:56px;background:#181a20;border-bottom:1.5px solid #23272e;padding:0 24px;">
-            <button class="icon-btn" id="backBtn" title="Back" style="background:none;border:none;outline:none;cursor:pointer;display:flex;align-items:center;padding:6px;border-radius:6px;">
+    <div id="page2"
+        style="display:none;flex-direction:column;height:100vh;width:100vw;position:fixed;left:0;top:0;background:#111;z-index:100;">
+        <div class="top-bar" style="display:flex">
+            <button class="icon-btn" id="backBtn" title="Back"
+                style="background:none;border:none;outline:none;cursor:pointer;display:flex;align-items:center;padding:6px;border-radius:6px;">
                 <span class="material-icons" style="font-size:16px;font-weight:400;">arrow_back_ios_new</span>
             </button>
             <div style="flex:1;"></div>
-            <button class="icon-btn" id="settingsBtn" title="Settings" style="background:none;border:none;outline:none;cursor:pointer;display:flex;align-items:center;padding:6px;border-radius:6px;">
+            <button class="icon-btn" id="settingsBtn" title="Settings"
+                style="background:none;border:none;outline:none;cursor:pointer;display:flex;align-items:center;padding:6px;border-radius:6px;">
                 <span class="material-icons outlined" style="font-size:18px;font-weight:400;">settings</span>
             </button>
+        </div>
+        <!-- Settings Popup -->
+        <div id="settingsPopup"
+            style="display:none;position:fixed;top:48px;right:20px;min-width:340px;background:#23272e;border-radius:12px;box-shadow:0 4px 24px #0008;padding:24px 24px 18px 24px;z-index:9999;color:#fff;">
+            <div style="font-size:1.18rem;font-weight:500;margin-bottom:12px;">Tree viewer</div>
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+                <div style="font-size:1rem;font-weight:500;min-width:110px;">Element Hint</div>
+                <form id="treeHintForm"
+                    style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;width:120px;">
+                    <label class="modern-radio-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                        <input class="modern-radio" type="radio" name="treeHint" value="visual">
+                        <span>Visual cue</span>
+                    </label>
+                    <label class="modern-radio-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                        <input class="modern-radio" type="radio" name="treeHint" value="id">
+                        <span>Element id</span>
+                    </label>
+                    <label class="modern-radio-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                        <input class="modern-radio" type="radio" name="treeHint" value="none">
+                        <span>None</span>
+                    </label>
+                </form>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+                <button id="settingsCloseBtn"
+                    style="background:#181a20;border:none;color:#fff;padding:6px 18px;border-radius:6px;cursor:pointer;font-size:1rem;">Close</button>
+            </div>
         </div>
         <div id="splitPane" style="display:flex;flex:1;min-height:0;height:calc(100vh - 56px);">
             <div class="pane" id="pane1" style="background:#181a20;flex:1;min-width:120px;overflow:auto;"></div>
@@ -207,60 +272,191 @@
             <div class="pane" id="pane2" style="background:#181a20;flex:1;min-width:120px;overflow:auto;"></div>
         </div>
     </div>
-    <script>
-    // File upload filename display
-    const fileInput = document.getElementById('jsonFile');
-    const fileNameSpan = document.getElementById('fileName');
-    fileInput.addEventListener('change', function() {
-        fileNameSpan.textContent = fileInput.files.length ? fileInput.files[0].name : 'No file chosen';
-    });
-
-    // Helper: validate JSON string
-    function isValidJson(str) {
-        try {
-            JSON.parse(str);
-            return true;
-        } catch (e) {
-            return false;
+    <style>
+        .modern-radio {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #6b7683;
+            border-radius: 50%;
+            background: #181a20;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 0 2px transparent;
         }
-    }
 
-    // On submit, validate JSON from file or textarea
-    document.getElementById('loadJsonBtn').onclick = function() {
-        const file = fileInput.files[0];
-        const textarea = document.getElementById('jsonInput');
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const text = e.target.result;
+        .modern-radio:checked {
+            border-color: #8ab4f8;
+            background: #23272e;
+            box-shadow: 0 0 0 2px #8ab4f8;
+        }
+
+        .modern-radio:checked::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #8ab4f8;
+        }
+
+        .modern-radio-label span {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        /* Fix top bar button overlap */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            background: #181a20 !important;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+    </style>
+    <script>
+        // Tree viewer UI config state
+        window.treeViewerHint = 'visual'; // default
+        // File upload filename display
+        const fileInput = document.getElementById('jsonFile');
+        const fileNameSpan = document.getElementById('fileName');
+        fileInput.addEventListener('change', function () {
+            fileNameSpan.textContent = fileInput.files.length ? fileInput.files[0].name : 'No file chosen';
+        });
+
+        // Helper: validate JSON string
+        function isValidJson(str) {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // On submit, validate JSON from file or textarea
+        document.getElementById('loadJsonBtn').onclick = function () {
+            const file = fileInput.files[0];
+            const textarea = document.getElementById('jsonInput');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const text = e.target.result;
+                    if (isValidJson(text)) {
+                        showPage2(text);
+                    } else {
+                        alert('Invalid JSON in file.');
+                    }
+                };
+                reader.readAsText(file);
+            } else {
+                const text = textarea.value.trim();
+                if (!text) {
+                    alert('Please provide JSON data.');
+                    return;
+                }
                 if (isValidJson(text)) {
                     showPage2(text);
                 } else {
-                    alert('Invalid JSON in file.');
+                    alert('Invalid JSON in textarea.');
                 }
-            };
-            reader.readAsText(file);
-        } else {
-            const text = textarea.value.trim();
-            if (!text) {
-                alert('Please provide JSON data.');
-                return;
             }
-            if (isValidJson(text)) {
-                showPage2(text);
-            } else {
-                alert('Invalid JSON in textarea.');
-            }
-        }
-    };
+        };
 
-    // Show page2 and render titles
-    function showPage2(jsonText) {
-        document.getElementById('input-area').style.display = 'none';
-        document.getElementById('page2').style.display = 'flex';
-        // Add left pane title bar
-        const pane1 = document.getElementById('pane1');
-        pane1.innerHTML = `
+        // Show page2 and render titles
+        function showPage2(jsonText) {
+            // Settings popup logic
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsPopup = document.getElementById('settingsPopup');
+            const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+            const treeHintForm = document.getElementById('treeHintForm');
+            if (settingsBtn && settingsPopup) {
+                settingsBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    settingsPopup.style.display = 'block';
+                    // Set current selection
+                    const radios = treeHintForm.elements['treeHint'];
+                    for (let i = 0; i < radios.length; i++) {
+                        radios[i].checked = (radios[i].value === window.treeViewerHint);
+                    }
+                };
+                settingsCloseBtn.onclick = function () {
+                    settingsPopup.style.display = 'none';
+                };
+                treeHintForm.onchange = function () {
+                    const val = treeHintForm.elements['treeHint'].value;
+                    window.treeViewerHint = val;
+                    // Re-render tree viewer
+                    lineNum = 1;
+                    treeContainer.innerHTML = renderTreeFromSections();
+                };
+                // Hide popup on outside click
+                document.addEventListener('mousedown', function (ev) {
+                    if (settingsPopup.style.display === 'block' && !settingsPopup.contains(ev.target) && ev.target !== settingsBtn) {
+                        settingsPopup.style.display = 'none';
+                    }
+                });
+            }
+            document.getElementById('input-area').style.display = 'none';
+            document.getElementById('page2').style.display = 'flex';
+            // Fix top bar layout
+            const topBar = document.getElementById('top-bar');
+            if (topBar) {
+                topBar.classList.add('top-bar');
+                // Wrap left and right buttons in flex containers
+                let left = topBar.querySelector('.top-bar-left');
+                let right = topBar.querySelector('.top-bar-right');
+                if (!left) {
+                    left = document.createElement('div');
+                    left.className = 'top-bar-left';
+                    // Move back button to left
+                    const backBtn = topBar.querySelector('#backBtn');
+                    if (backBtn) left.appendChild(backBtn);
+                    topBar.insertBefore(left, topBar.firstChild);
+                }
+                if (!right) {
+                    right = document.createElement('div');
+                    right.className = 'top-bar-right';
+                    // Move settings button to right
+                    const settingsBtn = topBar.querySelector('#settingsBtn');
+                    if (settingsBtn) right.appendChild(settingsBtn);
+                    topBar.appendChild(right);
+                }
+            }
+            // Add left pane title bar
+            const pane1 = document.getElementById('pane1');
+            pane1.innerHTML = `
             <div class="pane-title-bar" style="display:flex;align-items:center;justify-content:space-between;height:44px;background:#23272e;padding:0 16px 0 0;position:sticky;top:0;z-index:2;padding-top:0 !important;">
                 <span style="font-size:1.08rem;font-weight:500;color:#fff;padding-left:18px;">Tree View</span>
                 <span style="display:flex;gap:8px;">
@@ -275,155 +471,362 @@
             <div class="tree-content" style="overflow:auto;max-height:calc(100vh - 56px - 44px);padding:0 0 0 0;">
             </div>
         `;
-        // Render tree view for DesignStudio format: start from sections, traverse elements, use type as node label
-        const treeContent = pane1.querySelector('.tree-content');
-        const treeContainer = document.createElement('div');
-        treeContainer.id = 'tree-viewer';
-        treeContainer.style.fontSize = '15px';
-        treeContainer.style.fontWeight = '400';
-        treeContainer.style.fontFamily = 'Menlo, Consolas, monospace';
-        treeContainer.style.color = '#fff';
-        treeContainer.style.marginTop = '0px';
-        treeContainer.style.paddingLeft = '0px';
-        treeContainer.style.userSelect = 'text';
-        const json = JSON.parse(jsonText);
-        let lineNum = 1;
-        // Helper to get element by id from elements map
-        function getElementById(id) {
-            return json.elements && json.elements[id];
-        }
-        // Render a node (element), recursively
-        function renderElementNode(elementId, depth, parentPath, expanded = true) {
-            const el = getElementById(elementId);
-            if (!el) return '';
-            const hasChildren = Array.isArray(el.elements) && el.elements.length > 0;
-            const nodeId = parentPath + '/' + elementId;
-            let html = '';
-            html += `<div class="tree-row" data-nodeid="${nodeId}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;cursor:pointer;">`;
-            // Fixed left column for line number and arrow
-            html += `<span class="tree-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;">
-                <span class="tree-linenum" style="width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${lineNum++}</span>`;
-            if (hasChildren) {
-                html += `<span class="tree-toggle material-icons" data-nodeid="${nodeId}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
-            } else {
-                html += `<span style="display:inline-block;width:18px;"></span>`;
+            // Render tree view for DesignStudio format: start from sections, traverse elements, use type as node label
+            const treeContent = pane1.querySelector('.tree-content');
+            const treeContainer = document.createElement('div');
+            treeContainer.id = 'tree-viewer';
+            treeContainer.style.fontSize = '15px';
+            treeContainer.style.fontWeight = '400';
+            treeContainer.style.fontFamily = 'Menlo, Consolas, monospace';
+            treeContainer.style.color = '#fff';
+            treeContainer.style.marginTop = '0px';
+            treeContainer.style.paddingLeft = '0px';
+            treeContainer.style.userSelect = 'text';
+            const json = JSON.parse(jsonText);
+            window.jsonRootData = json;
+            let lineNum = 1;
+            // Helper to get element by id from elements map
+            function getElementById(id) {
+                return json.elements && json.elements[id];
             }
-            html += `</span>`;
-            // Node label: type (title), and elementId (faint), with vertical and L lines for tree structure
-            html += `<span class="tree-keyval" style="position:relative;display:flex;align-items:center;margin-left:${depth * 18}px;">`;
-            // Draw vertical lines for each ancestor depth (except the last, which is the node itself)
-            for (let d = 0; d < depth; d++) {
-                html += `<span class="tree-vline" style="position:absolute;left:${d * 18}px;top:0;bottom:0;width:1px;background:#2a2d34;"></span>`;
-            }
-            // Draw L-connector for this node if it has children
-            if (hasChildren) {
-                html += `<span class="tree-lconn" style="position:absolute;left:${depth * 18}px;top:12px;width:18px;height:13px;border-left:1px solid #2a2d34;border-bottom:1px solid #2a2d34;"></span>`;
-            } else if (depth > 0) {
-                // For leaf nodes, just a vertical line to the node
-                html += `<span class="tree-vline" style="position:absolute;left:${depth * 18}px;top:0;bottom:12px;width:1px;background:#2a2d34;"></span>`;
-            }
-            html += `<span style="color:#fff;position:relative;z-index:1;">${el.type || 'element'}</span>`;
-            html += `<span style="color:#6b7683;font-size:12px;margin-left:8px;position:relative;z-index:1;">${elementId}</span>`;
-            html += `</span></div>`;
-            if (expanded && hasChildren) {
-                for (const childId of el.elements) {
-                    html += renderElementNode(childId, depth + 1, nodeId);
-                }
-            }
-            return html;
-        }
-        // Start from sections array
-        function renderTreeFromSections() {
-            let html = '';
-            if (Array.isArray(json.sections)) {
-                for (const sectionId of json.sections) {
-                    html += renderElementNode(sectionId, 0, '', true);
-                }
-            }
-            return html;
-        }
-        treeContainer.innerHTML = renderTreeFromSections();
-        treeContent.appendChild(treeContainer);
-
-        // Expand/collapse all logic
-        function setAllTreeRows(expand) {
-            const rows = treeContainer.querySelectorAll('.tree-row');
-            rows.forEach((row, idx) => {
-                if (expand) {
-                    row.style.display = 'flex';
+            // Render a node (element), recursively
+            function renderElementNode(elementId, depth, parentPath, expanded = true) {
+                const el = getElementById(elementId);
+                if (!el) return '';
+                const hasChildren = Array.isArray(el.elements) && el.elements.length > 0;
+                const nodeId = parentPath + '/' + elementId;
+                let html = '';
+                html += `<div class="tree-row" data-nodeid="${nodeId}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;cursor:pointer;">`;
+                // Fixed left column for line number and arrow
+                html += `<span class="tree-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:64px;min-width:64px;max-width:64px;">
+                <span class="tree-linenum" style="width:44px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${lineNum++}</span>`;
+                if (hasChildren) {
+                    html += `<span class="tree-toggle material-icons" data-nodeid="${nodeId}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
                 } else {
-                    row.style.display = idx === 0 ? 'flex' : 'none';
+                    html += `<span style="display:inline-block;width:18px;"></span>`;
                 }
-                // Set toggle icon
-                const toggle = row.querySelector('.tree-toggle');
-                if (toggle) {
-                    toggle.textContent = expand ? 'expand_more' : 'chevron_right';
+                html += `</span>`;
+                // Node label: type (title), and elementId (faint), with vertical and L lines for tree structure
+                html += `<span class="tree-keyval" style="position:relative;display:flex;align-items:center;margin-left:${depth * 18}px;">`;
+                // No vertical lines or connectors in tree viewer
+                html += `<span style="color:#fff;position:relative;z-index:1;">${el.type || 'element'}</span>`;
+                // Element hint logic
+                if (window.treeViewerHint === 'visual') {
+                    let cue = '';
+                    // For heading element, show el.element.content from input JSON
+                    if (el.type === 'heading' && typeof el.element.content === 'string') {
+                        cue = el.element.content;
+                        if (cue) {
+                            html += `<span style=\"color:#8ab4f8;font-size:12px;margin-left:8px;position:relative;z-index:1;\">${cue}</span>`;
+                        }
+                    }
+                    // For icon element, show el.element.data.content from input JSON
+                    else if (el.type === 'icon' && el.element.data && typeof el.element.data.content === 'string') {
+                        cue = el.element.data.content;
+                        if (cue) {
+                            html += `<span style=\"color:#8ab4f8;font-size:12px;margin-left:8px;position:relative;z-index:1;\">${cue}</span>`;
+                        }
+                    }
+                    // For image element, show el.element.data.src from input JSON
+                    else if (el.type === 'image' && el.element.data && typeof el.element.data.src === 'string') {
+                        cue = el.element.data.src;
+                        if (cue) {
+                            html += `<span style=\"color:#8ab4f8;font-size:12px;margin-left:8px;position:relative;z-index:1;\">${cue}</span>`;
+                        }
+                    }
+                    // For others, show background src or color from input JSON
+                    else {
+                        let bgSrc = '';
+                        let bgColor = '';
+                        if (el.element.style && el.element.style.background) {
+                            if (typeof el.element.style.background.src === 'string' && el.element.style.background.src.trim()) {
+                                bgSrc = el.element.style.background.src;
+                            }
+                            if (typeof el.element.style.background.color === 'string' && el.element.style.background.color.trim()) {
+                                bgColor = el.element.style.background.color;
+                            }
+                        }
+                        if (bgSrc) {
+                            html += `<span style=\"color:#8ab4f8;font-size:12px;margin-left:8px;position:relative;z-index:1;\">${bgSrc}</span>`;
+                        } else if (bgColor) {
+                            html += `<span style=\"display:inline-flex;align-items:center;margin-left:8px;\"><span style=\"display:inline-block;width:24px;height:24px;background:${bgColor};border-radius:6px;border:1px solid #444;margin-right:6px;box-shadow:0 1px 4px #0003;vertical-align:middle;\"></span><span style=\"color:#8ab4f8;font-size:12px;\">${bgColor}</span></span>`;
+                        }
+                    }
+                } else if (window.treeViewerHint === 'id') {
+                    html += `<span style="color:#6b7683;font-size:12px;margin-left:8px;position:relative;z-index:1;">${elementId}</span>`;
                 }
-            });
-        }
+                html += `</span></div>`;
+                if (expanded && hasChildren) {
+                    for (const childId of el.elements) {
+                        html += renderElementNode(childId, depth + 1, nodeId);
+                    }
+                }
+                return html;
+            }
+            // Start from sections array
+            function renderTreeFromSections() {
+                let html = '';
+                if (Array.isArray(json.sections)) {
+                    for (const sectionId of json.sections) {
+                        html += renderElementNode(sectionId, 0, '', true);
+                    }
+                }
+                return html;
+            }
+            treeContainer.innerHTML = renderTreeFromSections();
+            treeContent.appendChild(treeContainer);
 
-        // Panel bar expand/collapse all
-        const expandAllBtn = pane1.querySelector('#expandAllBtn');
-        const collapseAllBtn = pane1.querySelector('#collapseAllBtn');
-        if (expandAllBtn) {
-            expandAllBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                setAllTreeRows(true);
-            });
-        }
-        if (collapseAllBtn) {
-            collapseAllBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                setAllTreeRows(false);
-            });
-        }
+            // Expand/collapse all logic
+            function setAllTreeRows(expand) {
+                const rows = treeContainer.querySelectorAll('.tree-row');
+                rows.forEach((row, idx) => {
+                    if (expand) {
+                        row.style.display = 'flex';
+                    } else {
+                        row.style.display = idx === 0 ? 'flex' : 'none';
+                    }
+                    // Set toggle icon
+                    const toggle = row.querySelector('.tree-toggle');
+                    if (toggle) {
+                        toggle.textContent = expand ? 'expand_more' : 'chevron_right';
+                    }
+                });
+            }
 
-        // Expand/collapse logic for new tree
-        treeContent.addEventListener('click', function(e) {
-            const target = e.target;
-            if (target.classList.contains('tree-toggle')) {
-                const row = target.closest('.tree-row');
-                const expanded = target.textContent === 'expand_more';
-                target.textContent = expanded ? 'chevron_right' : 'expand_more';
-                // Get depth from margin-left of .tree-keyval
-                let depth = 0;
-                if (row) {
+            // Panel bar expand/collapse all
+            const expandAllBtn = pane1.querySelector('#expandAllBtn');
+            const collapseAllBtn = pane1.querySelector('#collapseAllBtn');
+            if (expandAllBtn) {
+                expandAllBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    setAllTreeRows(true);
+                });
+            }
+            if (collapseAllBtn) {
+                collapseAllBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    setAllTreeRows(false);
+                });
+            }
+
+            // Expand/collapse logic for new tree
+            treeContent.addEventListener('click', function (e) {
+                const target = e.target;
+                if (target.classList.contains('tree-toggle')) {
+                    const row = target.closest('.tree-row');
+                    // Toggle icon first
+                    const wasExpanded = target.textContent === 'expand_more';
+                    target.textContent = wasExpanded ? 'chevron_right' : 'expand_more';
+                    // Now use the toggled state
+                    const isExpanded = !wasExpanded;
+                    // Get depth
+                    let depth = 0;
                     const keyval = row.querySelector('.tree-keyval');
                     if (keyval) {
                         const ml = keyval.style.marginLeft || '0px';
                         depth = parseInt(ml) / 18;
                     }
-                }
-                let next = row.nextElementSibling;
-                while (next) {
-                    let nextDepth = 0;
-                    const keyval = next.querySelector('.tree-keyval');
-                    if (keyval) {
-                        const ml = keyval.style.marginLeft || '0px';
-                        nextDepth = parseInt(ml) / 18;
-                    }
-                    if (nextDepth <= depth) break;
-                    if (expanded) {
-                        // Collapse: hide all descendants
-                        next.style.display = 'none';
-                        // Also set any toggles to collapsed state visually
-                        const toggle = next.querySelector('.tree-toggle');
-                        if (toggle && toggle.textContent === 'expand_more') {
-                            toggle.textContent = 'chevron_right';
+                    // Find closing row for this block
+                    let next = row.nextElementSibling;
+                    let closingRow = null;
+                    function showExpandedDescendants(startRow, startDepth) {
+                        let nextRow = startRow.nextElementSibling;
+                        while (nextRow) {
+                            let nextDepth = 0;
+                            const nextKeyval = nextRow.querySelector('.tree-keyval');
+                            if (nextKeyval) {
+                                const ml = nextKeyval.style.marginLeft || '0px';
+                                nextDepth = parseInt(ml) / 18;
+                            }
+                            if (nextDepth <= startDepth) break;
+                            if (nextDepth === startDepth + 1) {
+                                nextRow.style.display = 'flex';
+                                const toggle = nextRow.querySelector('.tree-toggle');
+                                if (toggle && toggle.textContent === 'expand_more') {
+                                    showExpandedDescendants(nextRow, nextDepth);
+                                }
+                            }
+                            nextRow = nextRow.nextElementSibling;
                         }
-                    } else {
-                        // Expand: only show direct children
-                        if (nextDepth === depth + 1) next.style.display = 'flex';
                     }
-                    next = next.nextElementSibling;
+                    while (next) {
+                        let nextDepth = 0;
+                        const nextKeyval = next.querySelector('.tree-keyval');
+                        if (nextKeyval) {
+                            const ml = nextKeyval.style.marginLeft || '0px';
+                            nextDepth = parseInt(ml) / 18;
+                        }
+                        // Detect closing row: same depth+1, only contains closing brace/bracket
+                        if (nextDepth === depth && nextKeyval && (nextKeyval.textContent.trim() === '}' || nextKeyval.textContent.trim() === ']')) {
+                            closingRow = next;
+                            // Special case: root node (depth 0)
+                            let showClosing = true;
+                            if (depth === 0) {
+                                // Always show closing row for root when expanded
+                                closingRow.style.display = isExpanded ? 'flex' : 'none';
+                            } else {
+                                // Hide closing row if ANY descendant (not just direct child) is collapsed and hidden
+                                let scanRow = row.nextElementSibling;
+                                while (scanRow && scanRow !== closingRow) {
+                                    const scanKeyval = scanRow.querySelector('.tree-keyval');
+                                    let scanDepth = null;
+                                    if (scanKeyval) {
+                                        const mlScan = scanKeyval.style.marginLeft || '0px';
+                                        scanDepth = parseInt(mlScan) / 18;
+                                    }
+                                    // If any descendant (depth > parent) is hidden, hide closing row
+                                    if (scanDepth !== null && scanDepth > depth && scanRow.style.display === 'none') {
+                                        showClosing = false;
+                                        break;
+                                    }
+                                    scanRow = scanRow.nextElementSibling;
+                                }
+                                if (showClosing) {
+                                    closingRow.style.display = isExpanded ? 'flex' : 'none';
+                                } else {
+                                    closingRow.style.display = 'none';
+                                }
+                            }
+                        }
+                        if (nextDepth <= depth) break;
+                        if (!isExpanded) {
+                            // Collapse: hide all descendants, but do NOT change their toggle states
+                            next.style.display = 'none';
+                        } else {
+                            // Expand: show only direct children, and recursively show expanded descendants
+                            if (nextDepth === depth + 1) {
+                                next.style.display = 'flex';
+                                // If child is collapsed, ensure ellipsis and close are present
+                                const childToggle = next.querySelector('.tree-toggle');
+                                const childKeyval = next.querySelector('.tree-keyval');
+                                if (childToggle && childKeyval && childToggle.textContent === 'chevron_right') {
+                                    // Remove any previous ellipsis/close
+                                    const oldEllipsis = childKeyval.querySelector('.json-inline-ellipsis');
+                                    if (oldEllipsis) childKeyval.removeChild(oldEllipsis);
+                                    const oldClose = childKeyval.querySelector('.json-inline-close');
+                                    if (oldClose) childKeyval.removeChild(oldClose);
+                                    // Add ellipsis and closing symbol if object/array
+                                    const isObj = childKeyval.innerHTML.includes('{');
+                                    const isArr = childKeyval.innerHTML.includes('[');
+                                    let closeSymbol = '';
+                                    if (isObj) closeSymbol = '}';
+                                    if (isArr) closeSymbol = ']';
+                                    if (closeSymbol) {
+                                        let alreadyEllipsis = childKeyval.querySelector('.json-inline-ellipsis');
+                                        if (!alreadyEllipsis) {
+                                            let insertAfter = null;
+                                            const children = Array.from(childKeyval.childNodes);
+                                            for (let i = 0; i < children.length; i++) {
+                                                if (children[i].textContent === '{' || children[i].textContent === '[') {
+                                                    insertAfter = children[i];
+                                                    break;
+                                                }
+                                            }
+                                            const span = document.createElement('span');
+                                            span.className = 'json-inline-ellipsis';
+                                            span.style.color = '#8ab4f8';
+                                            span.style.cursor = 'pointer';
+                                            span.style.background = 'rgba(138,180,248,0.10)';
+                                            span.style.borderRadius = '6px';
+                                            span.style.padding = '1px 4px';
+                                            span.style.marginLeft = '2px';
+                                            span.style.marginRight = '2px';
+                                            span.style.textDecoration = 'none';
+                                            span.textContent = '...';
+                                            if (insertAfter) {
+                                                insertAfter.after(span);
+                                            } else {
+                                                childKeyval.appendChild(span);
+                                            }
+                                            const closeSpan = document.createElement('span');
+                                            closeSpan.className = 'json-inline-close';
+                                            closeSpan.style.color = '#8ab4f8';
+                                            closeSpan.textContent = closeSymbol;
+                                            span.after(closeSpan);
+                                            span.onclick = function (ev) {
+                                                ev.stopPropagation();
+                                                childToggle.click();
+                                            };
+                                        }
+                                    }
+                                }
+                                if (childToggle && childToggle.textContent === 'expand_more') {
+                                    showExpandedDescendants(next, nextDepth);
+                                }
+                            }
+                        }
+                        next = next.nextElementSibling;
+                    }
+                    // Inline closing symbol logic
+                    if (isExpanded && closingRow) {
+                        // Collapsing: hide closing row, add inline close ONLY to this row, remove from ancestors
+                        closingRow.style.display = 'none';
+                        if (keyval) {
+                            // Remove any previous closing symbol from this row
+                            const oldClose = keyval.querySelector('.json-inline-close');
+                            if (oldClose) keyval.removeChild(oldClose);
+                            // Remove from all ancestor rows
+                            let parentRow = row.previousElementSibling;
+                            while (parentRow) {
+                                const parentKeyval = parentRow.querySelector('.tree-keyval');
+                                if (parentKeyval) {
+                                    const parentML = parentKeyval.style.marginLeft || '0px';
+                                    const parentDepth = parseInt(parentML) / 18;
+                                    if (parentDepth < depth) {
+                                        const parentClose = parentKeyval.querySelector('.json-inline-close');
+                                        if (parentClose) parentKeyval.removeChild(parentClose);
+                                    }
+                                    if (parentDepth === 0) break;
+                                }
+                                parentRow = parentRow.previousElementSibling;
+                            }
+                            // Add closing symbol inline ONLY to this row
+                            const isObj = keyval.textContent.includes('{');
+                            const isArr = keyval.textContent.includes('[');
+                            let closeSymbol = '';
+                            if (isObj) closeSymbol = '}';
+                            if (isArr) closeSymbol = ']';
+                            if (closeSymbol) {
+                                const span = document.createElement('span');
+                                span.className = 'json-inline-close';
+                                span.style.color = '#8ab4f8';
+                                span.textContent = closeSymbol;
+                                keyval.appendChild(span);
+                            }
+                        }
+                    } else if (closingRow) {
+                        // Expanding: show closing row, remove inline close from this row and all ancestors
+                        closingRow.style.display = 'flex';
+                        if (keyval) {
+                            const oldClose = keyval.querySelector('.json-inline-close');
+                            if (oldClose) keyval.removeChild(oldClose);
+                        }
+                        // Remove from all ancestor rows
+                        let parentRow = row.previousElementSibling;
+                        while (parentRow) {
+                            const parentKeyval = parentRow.querySelector('.tree-keyval');
+                            if (parentKeyval) {
+                                const parentML = parentKeyval.style.marginLeft || '0px';
+                                const parentDepth = parseInt(parentML) / 18;
+                                if (parentDepth < depth) {
+                                    const parentClose = parentKeyval.querySelector('.json-inline-close');
+                                    if (parentClose) parentKeyval.removeChild(parentClose);
+                                }
+                                if (parentDepth === 0) break;
+                            }
+                            parentRow = parentRow.previousElementSibling;
+                        }
+                    }
                 }
-            }
-        });
-        // Add right pane title bar with expand/collapse all
-        const pane2 = document.getElementById('pane2');
-        pane2.innerHTML = `<div class="pane-title-bar" style="display:flex;align-items:center;justify-content:space-between;height:44px;background:#23272e;padding:0 16px 0 0;position:sticky;top:0;z-index:2;padding-top:0 !important;">
-            <span style="font-size:1.08rem;font-weight:500;color:#fff;padding-left:18px;">JSON Viewer</span>
+            });
+            // Add right pane title bar with expand/collapse all and Copy JSON button
+            const pane2 = document.getElementById('pane2');
+            pane2.innerHTML = `<div class="pane-title-bar" style="display:flex;align-items:center;justify-content:space-between;height:44px;background:#23272e;padding:0 16px 0 0;position:sticky;top:0;z-index:2;padding-top:0 !important;">
+            <span style="font-size:1.0rem;font-weight:500;color:#fff;padding-left:18px;">JSON Viewer</span>
             <span style="display:flex;gap:8px;">
+                <button id="copyJsonBtn" title="Copy JSON" style="background:none;border:none;cursor:pointer;padding:2px 4px;color:#8ab4f8;font-size:11px;">
+                    <span class="material-icons" style="font-size:16px;">content_copy</span>
+                </button>
                 <button id="expandAllBtn2" title="Expand All" style="background:none;border:none;cursor:pointer;padding:4px 6px;">
                     <span class="material-icons">unfold_more</span>
                 </button>
@@ -433,348 +836,671 @@
             </span>
         </div><div class="json-content" style="overflow:auto;max-height:calc(100vh - 56px - 44px);padding:0 0 0 0;font-size:15px;font-family:Menlo,Consolas,monospace;color:#fff;font-weight:400;"></div>`;
 
-        // JSON viewer logic
-        const jsonContent = pane2.querySelector('.json-content');
-        let jsonLineNum = 1;
-        // Helper: render JSON node recursively with expand/collapse and lines
-        function renderJsonNode(key, value, depth, parentPath, expanded = true) {
-            const nodeId = parentPath + '/' + (key !== null ? key : 'root');
-            let html = '';
-            const isObj = value && typeof value === 'object' && !Array.isArray(value);
-            const isArr = Array.isArray(value);
-            const hasChildren = (isObj && Object.keys(value).length > 0) || (isArr && value.length > 0);
-            html += `<div class="json-row" data-nodeid="${nodeId}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;cursor:pointer;">`;
-            // Fixed left column for line number and arrow (like left pane)
-            html += `<span class="json-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;">
-                <span class="json-linenum" style="width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${jsonLineNum++}</span>`;
-            if (hasChildren) {
-                html += `<span class="json-toggle material-icons" data-nodeid="${nodeId}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
-            } else {
-                html += `<span style="display:inline-block;width:18px;"></span>`;
-            }
-            html += `</span>`;
-            // Node label
-            // Inline collapsed object/array with key
-            if (!expanded && (isObj || isArr)) {
-                html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\">`;
-                if (key !== null) {
-                    html += `<span style=\"color:#fff491;\">${JSON.stringify(key)}</span><span style=\"color:#fff;\">: </span>`;
-                }
-                if (isObj) {
-                    html += `<span style=\"color:#8ab4f8;\">123{...}</span>`;
-                } else {
-                    html += `<span style=\"color:#8ab4f8;\">[...]</span>`;
-                }
-                html += `</span></div>`;
-                return html;
-            }
-            html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\">`;
-            if (key !== null) {
-                html += `<span style=\"color:#fff491;\">${JSON.stringify(key)}</span><span style=\"color:#fff;\">: </span>`;
-            }
-            if (isObj) {
-                html += `<span style=\"color:#8ab4f8;\">{</span>`;
-            } else if (isArr) {
-                html += `<span style=\"color:#8ab4f8;\">[</span>`;
-            } else {
-                html += `<span style=\"color:#a1faaa;\">${JSON.stringify(value)}</span>`;
-            }
-            html += `</span></div>`;
-            // Children
-            if (expanded && hasChildren) {
-                if (isObj) {
-                    for (const k of Object.keys(value)) {
-                        html += renderJsonNode(k, value[k], depth + 1, nodeId);
-                    }
-                    // Closing brace
-                    html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
-                    html += `<span class=\"json-fixedcol\" style=\"width:48px;min-width:48px;max-width:48px;\"></span>`;
-                    html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">}</span></span>`;
-                    html += `</div>`;
-                } else if (isArr) {
-                    for (let i = 0; i < value.length; i++) {
-                        html += renderJsonNode(i, value[i], depth + 1, nodeId);
-                    }
-                    // Closing bracket
-                    html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
-                    html += `<span class=\"json-fixedcol\" style=\"width:48px;min-width:48px;max-width:48px;\"></span>`;
-                    html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">]</span></span>`;
-                    html += `</div>`;
-                }
-            }
-            return html;
-        }
-
-        // Expand/collapse all logic for right pane
-        function setAllJsonRows(expand) {
-            const rows = jsonContent.querySelectorAll('.json-row');
-            rows.forEach((row, idx) => {
-                if (expand) {
-                    row.style.display = 'flex';
-                } else {
-                    row.style.display = idx === 0 ? 'flex' : 'none';
-                }
-                // Set toggle icon
-                const toggle = row.querySelector('.json-toggle');
-                if (toggle) {
-                    toggle.textContent = expand ? 'expand_more' : 'chevron_right';
-                }
-            });
-        }
-
-        // Panel bar expand/collapse all for right pane
-        const expandAllBtn2 = pane2.querySelector('#expandAllBtn2');
-        const collapseAllBtn2 = pane2.querySelector('#collapseAllBtn2');
-        if (expandAllBtn2) {
-            expandAllBtn2.addEventListener('click', function(e) {
-                e.stopPropagation();
-                setAllJsonRows(true);
-            });
-        }
-        if (collapseAllBtn2) {
-            collapseAllBtn2.addEventListener('click', function(e) {
-                e.stopPropagation();
-                setAllJsonRows(false);
-            });
-        }
-
-        // Expand/collapse logic for right pane
-        jsonContent.addEventListener('click', function(e) {
-            const target = e.target;
-            if (target.classList.contains('json-toggle')) {
-                const row = target.closest('.json-row');
-                const expanded = target.textContent === 'expand_more';
-                target.textContent = expanded ? 'chevron_right' : 'expand_more';
-                // Get depth from margin-left of .json-keyval
-                let depth = 0;
-                if (row) {
-                    const keyval = row.querySelector('.json-keyval');
-                    if (keyval) {
-                        const ml = keyval.style.marginLeft || '0px';
-                        depth = parseInt(ml) / 18;
-                    }
-                }
-                let next = row.nextElementSibling;
-                while (next) {
-                    let nextDepth = 0;
-                    const keyval = next.querySelector('.json-keyval');
-                    if (keyval) {
-                        const ml = keyval.style.marginLeft || '0px';
-                        nextDepth = parseInt(ml) / 18;
-                    }
-                    if (nextDepth <= depth) break;
-                    if (expanded) {
-                        next.style.display = 'none';
-                        const toggle = next.querySelector('.json-toggle');
-                        if (toggle && toggle.textContent === 'expand_more') {
-                            toggle.textContent = 'chevron_right';
-                        }
-                    } else {
-                        if (nextDepth === depth + 1) next.style.display = 'flex';
-                    }
-                    next = next.nextElementSibling;
-                }
-            }
-        });
-
-        // On left node click, show JSON in right pane
-treeContent.addEventListener('click', function(e) {
-    // Only handle clicks on .tree-row, but ignore clicks on .tree-toggle (let expand/collapse logic above handle those)
-    const row = e.target.closest('.tree-row');
-    if (!row || e.target.classList.contains('tree-toggle')) return;
-    const nodeId = row.getAttribute('data-nodeid');
-    // Traverse path to get the correct element
-    const path = nodeId.split('/').filter(Boolean);
-    curr = json.elements[path[path.length - 1]];
-    if (!curr) return; // No element found for this path
-    let el = curr;
-    jsonLineNum = 1;
-    jsonContent.innerHTML = renderJsonNode(null, el, 0, '', true);
-});
-
-        // Show root JSON by default
-        jsonLineNum = 1;
-        jsonContent.innerHTML = renderJsonNode(null, json, 0, '', true);
-
-        // Double-click: toggle expand/collapse for both viewers
-        treeContent.addEventListener('dblclick', function(e) {
-            if (true) return; // Ignore double-clicks
-            const row = e.target.closest('.tree-row');
-            if (!row) return;
-            const nodeId = row.getAttribute('data-nodeid');
-            // Toggle tree expand/collapse
-            const toggle = row.querySelector('.tree-toggle');
-            if (toggle) {
-                toggle.click();
-            }
-            // Also toggle JSON viewer for same node
-            // Find element by nodeId path (same as click logic)
-            const path = nodeId.split('/').filter(Boolean);
-            let el = json;
-            if (path.length > 0) {
-                let curr = json;
-                if (json.elements && path[0] in json.elements) {
-                    curr = json.elements[path[0]];
-                }
-                for (let i = 1; i < path.length; i++) {
-                    if (curr.elements && curr.elements[path[i]]) {
-                        curr = curr.elements[path[i]];
-                    }
-                }
-                el = curr;
-            }
-            // Render JSON with toggled expand/collapse state
-            // To do this, keep a map of expanded/collapsed nodeIds for the right pane
-            if (!window.jsonExpandState) window.jsonExpandState = {};
-            const jsonState = window.jsonExpandState;
-            // Toggle state for this node
-            jsonState[nodeId] = !jsonState[nodeId];
-            // Helper to render with state
-            function renderJsonNodeWithState(key, value, depth, parentPath, expandedDefault = true) {
-                const nodeId2 = parentPath + '/' + (key !== null ? key : 'root');
-                let expanded = expandedDefault;
-                if (nodeId2 in jsonState) expanded = jsonState[nodeId2];
-                // Use original renderJsonNode logic, but pass expanded
-                // Copy-paste the body of renderJsonNode, but use expanded from state
+            // JSON viewer logic
+            const jsonContent = pane2.querySelector('.json-content');
+            let jsonLineNum = 1;
+            // Helper: render JSON node recursively with expand/collapse and lines
+            function renderJsonNode(key, value, depth, parentPath, expanded = true) {
+                const nodeId = parentPath + '/' + (key !== null ? key : 'root');
+                let html = '';
                 const isObj = value && typeof value === 'object' && !Array.isArray(value);
                 const isArr = Array.isArray(value);
-                const hasChildren = (isObj && Object.keys(value).length > 0) || (isArr && value.length > 0);
-                let html = '';
-                html += `<div class="json-row" data-nodeid="${nodeId2}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;">`;
-                html += `<span class="json-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;">`;
-                html += `<span class="json-linenum" style="width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${jsonLineNum++}</span>`;
+                const objKeys = isObj ? Object.keys(value) : [];
+                const arrLen = isArr ? value.length : 0;
+                const hasChildren = (isObj && objKeys.length > 0) || (isArr && arrLen > 0);
+                const isEmptyObj = isObj && objKeys.length === 0;
+                const isEmptyArr = isArr && arrLen === 0;
+                html += `<div class="json-row" data-nodeid="${nodeId}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;cursor:pointer;">`;
+                // Fixed left column for line number and arrow (like left pane)
+                html += `<span class="json-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:64px;min-width:64px;max-width:64px;">
+                <span class="json-linenum" style="width:44px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${jsonLineNum++}</span>`;
                 if (hasChildren) {
-                    html += `<span class="json-toggle material-icons" data-nodeid="${nodeId2}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
+                    html += `<span class="json-toggle material-icons" data-nodeid="${nodeId}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
                 } else {
                     html += `<span style="display:inline-block;width:18px;"></span>`;
                 }
                 html += `</span>`;
-                // Inline collapsed object/array with key
+                // Node label
+                // Inline collapsed object/array with key and closing symbol
                 if (!expanded && (isObj || isArr)) {
-                    html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\">`;
+                    html += `<span class="json-keyval" style="margin-left:${depth * 18}px;">`;
                     if (key !== null) {
-                        html += `<span style=\"color:#fff491;\">${JSON.stringify(key)}</span><span style=\"color:#fff;\">: </span>`;
+                        html += `<span style="color:#fff491;">${JSON.stringify(key)}</span><span style="color:#fff;">: </span>`;
                     }
                     if (isObj) {
-                        html += `<span style=\"color:#8ab4f8;\">{ ... }</span><span style=\"color:#8ab4f8;\">}</span>`;
+                        html += `<span style="color:#8ab4f8;">{</span>`;
+                        html += `<span class="json-inline-ellipsis" style="color:#8ab4f8;cursor:pointer;text-decoration:underline;"> ... }</span>`;
                     } else {
-                        html += `<span style=\"color:#8ab4f8;\">[ ... ]</span><span style=\"color:#8ab4f8;\">]</span>`;
+                        html += `<span style="color:#8ab4f8;">[</span>`;
+                        html += `<span class="json-inline-ellipsis" style="color:#8ab4f8;cursor:pointer;text-decoration:underline;"> ... ]</span>`;
+                    }
+                    html += `</span></div>`;
+                    // Do NOT add a separate closing row when collapsed
+                    return html;
+                }
+                // If empty object/array, show {} or [] on same line
+                if (isEmptyObj || isEmptyArr) {
+                    html += `<span class="json-keyval" style="margin-left:${depth * 18}px;">`;
+                    if (key !== null) {
+                        html += `<span style="color:#fff491;">${JSON.stringify(key)}</span><span style="color:#fff;">: </span>`;
+                    }
+                    if (isEmptyObj) {
+                        html += `<span style="color:#8ab4f8;">{}</span>`;
+                    } else {
+                        html += `<span style="color:#8ab4f8;">[]</span>`;
                     }
                     html += `</span></div>`;
                     return html;
                 }
-                html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\">`;
+                html += `<span class="json-keyval" style="margin-left:${depth * 18}px;">`;
                 if (key !== null) {
-                    html += `<span style=\"color:#fff491;\">${JSON.stringify(key)}</span><span style=\"color:#fff;\">: </span>`;
+                    html += `<span style="color:#fff491;">${JSON.stringify(key)}</span><span style="color:#fff;">: </span>`;
                 }
                 if (isObj) {
-                    html += `<span style=\"color:#8ab4f8;\">{</span>`;
+                    html += `<span style="color:#8ab4f8;">{</span>`;
                 } else if (isArr) {
-                    html += `<span style=\"color:#8ab4f8;\">[</span>`;
+                    html += `<span style="color:#8ab4f8;">[</span>`;
                 } else {
-                    html += `<span style=\"color:#a1faaa;\">${JSON.stringify(value)}</span>`;
+                    html += `<span style="color:#a1faaa;">${JSON.stringify(value)}</span>`;
                 }
                 html += `</span></div>`;
+                // Children with commas at end of line
                 if (expanded && hasChildren) {
                     if (isObj) {
-                        for (const k of Object.keys(value)) {
-                            html += renderJsonNodeWithState(k, value[k], depth + 1, nodeId2);
+                        const keys = objKeys;
+                        for (let i = 0; i < keys.length; i++) {
+                            // Render child and add comma if not last
+                            let childHtml = renderJsonNode(keys[i], value[keys[i]], depth + 1, nodeId);
+                            if (i < keys.length - 1) {
+                                // Insert comma before closing </div> of child row
+                                childHtml = childHtml.replace(/<\/span><\/div>$/, '<span style="color:#8ab4f8;">,</span></span></div>');
+                            }
+                            html += childHtml;
                         }
+                        // Closing brace row with line number (match indentation and width)
                         html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
-                        html += `<span class=\"json-fixedcol\" style=\"width:48px;min-width:48px;max-width:48px;\"></span>`;
+                        html += `<span class=\"json-fixedcol\" style=\"display:flex;align-items:center;justify-content:flex-start;width:64px;min-width:64px;max-width:64px;\">`;
+                        html += `<span class=\"json-linenum\" style=\"width:44px;display:inline-block;color:#6b7683;text-align:right;user-select:none;\">${jsonLineNum++}</span>`;
+                        html += `<span style=\"display:inline-block;width:18px;\"></span>`;
+                        html += `</span>`;
                         html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">}</span></span>`;
                         html += `</div>`;
                     } else if (isArr) {
-                        for (let i = 0; i < value.length; i++) {
-                            html += renderJsonNodeWithState(i, value[i], depth + 1, nodeId2);
+                        for (let i = 0; i < arrLen; i++) {
+                            let childHtml = renderJsonNode(null, value[i], depth + 1, nodeId);
+                            if (i < arrLen - 1) {
+                                childHtml = childHtml.replace(/<\/span><\/div>$/, '<span style="color:#8ab4f8;">,</span></span></div>');
+                            }
+                            html += childHtml;
                         }
+                        // Closing bracket row with line number (match indentation and width)
                         html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
-                        html += `<span class=\"json-fixedcol\" style=\"width:48px;min-width:48px;max-width:48px;\"></span>`;
+                        html += `<span class=\"json-fixedcol\" style=\"display:flex;align-items:center;justify-content:flex-start;width:64px;min-width:64px;max-width:64px;\">`;
+                        html += `<span class=\"json-linenum\" style=\"width:44px;display:inline-block;color:#6b7683;text-align:right;user-select:none;\">${jsonLineNum++}</span>`;
+                        html += `<span style=\"display:inline-block;width:18px;\"></span>`;
+                        html += `</span>`;
                         html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">]</span></span>`;
                         html += `</div>`;
                     }
                 }
                 return html;
             }
-            jsonLineNum = 1;
-            jsonContent.innerHTML = renderJsonNodeWithState(null, el, 0, '', true);
-        });
+            // Copy JSON button logic (copy formatted JSON from viewer area)
+            const copyJsonBtn = pane2.querySelector('#copyJsonBtn');
+            // Toast helper
+            function showToast(msg) {
+                let toast = document.createElement('div');
+                toast.textContent = msg;
+                toast.style.position = 'fixed';
+                toast.style.top = '24px';
+                toast.style.right = '32px';
+                toast.style.background = '#23272e';
+                toast.style.color = '#8ab4f8';
+                toast.style.fontSize = '1rem';
+                toast.style.fontWeight = '500';
+                toast.style.padding = '10px 24px';
+                toast.style.borderRadius = '8px';
+                toast.style.boxShadow = '0 2px 8px #0005';
+                toast.style.zIndex = '9999';
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                document.body.appendChild(toast);
+                setTimeout(() => { toast.style.opacity = '1'; }, 10);
+                setTimeout(() => { toast.style.opacity = '0'; }, 1200);
+                setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 1600);
+            }
+            if (copyJsonBtn) {
+                // Remove any previous event listeners
+                copyJsonBtn.replaceWith(copyJsonBtn.cloneNode(true));
+                const newCopyBtn = pane2.querySelector('#copyJsonBtn');
+                newCopyBtn.addEventListener('click', function () {
+                    // Use regular function, not async
+                    try {
+                        // Get all visible .json-row elements
+                        const rows = Array.from(jsonContent.querySelectorAll('.json-row'));
+                        let formatted = '';
+                        rows.forEach(function (row) {
+                            if (row.style.display === 'none') return;
+                            // Get the keyval span
+                            var keyval = row.querySelector('.json-keyval');
+                            if (keyval) {
+                                // Remove line number and arrow, get only the JSON part
+                                var text = keyval.textContent;
+                                // Preserve indentation
+                                var margin = keyval.style.marginLeft || '0px';
+                                var indent = ' '.repeat(Math.round(parseInt(margin) / 6)); // 18px per level, so 3 spaces per level
+                                formatted += indent + text + '\n';
+                            }
+                        });
+                        navigator.clipboard.writeText(formatted.trim()).then(function () {
+                            showToast('Copied JSON!');
+                        }, function () {
+                            showToast('Copy failed');
+                        });
+                    } catch (e) {
+                        showToast('Copy failed');
+                    }
+                });
+            }
 
-        // Restore divider drag code
+            // Expand/collapse all logic for right pane
+            function setAllJsonRows(expand) {
+                const rows = jsonContent.querySelectorAll('.json-row');
+                rows.forEach((row, idx) => {
+                    // Set toggle icon
+                    const toggle = row.querySelector('.json-toggle');
+                    if (toggle) {
+                        toggle.textContent = expand ? 'expand_more' : 'chevron_right';
+                    }
+                    const keyval = row.querySelector('.json-keyval');
+                    if (expand) {
+                        row.style.display = 'flex';
+                        // Remove any inline ellipsis/close
+                        if (keyval) {
+                            const oldEllipsis = keyval.querySelector('.json-inline-ellipsis');
+                            if (oldEllipsis) keyval.removeChild(oldEllipsis);
+                            const oldClose = keyval.querySelector('.json-inline-close');
+                            if (oldClose) keyval.removeChild(oldClose);
+                        }
+                    } else {
+                        // Collapse all: only show top-level row, hide all others
+                        if (idx === 0) {
+                            row.style.display = 'flex';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                        // For all rows with children (toggle), add ellipsis/close if collapsed
+                        if (toggle && keyval && toggle.textContent === 'chevron_right') {
+                            // Remove any previous
+                            const oldEllipsis = keyval.querySelector('.json-inline-ellipsis');
+                            if (oldEllipsis) keyval.removeChild(oldEllipsis);
+                            const oldClose = keyval.querySelector('.json-inline-close');
+                            if (oldClose) keyval.removeChild(oldClose);
+                            // Add ellipsis and closing symbol if object/array
+                            const isObj = keyval.innerHTML.includes('{');
+                            const isArr = keyval.innerHTML.includes('[');
+                            let closeSymbol = '';
+                            if (isObj) closeSymbol = '}';
+                            if (isArr) closeSymbol = ']';
+                            if (closeSymbol) {
+                                // Insert after { or [
+                                let insertAfter = null;
+                                const children = Array.from(keyval.childNodes);
+                                for (let i = 0; i < children.length; i++) {
+                                    if (children[i].textContent === '{' || children[i].textContent === '[') {
+                                        insertAfter = children[i];
+                                        break;
+                                    }
+                                }
+                                const span = document.createElement('span');
+                                span.className = 'json-inline-ellipsis';
+                                span.style.color = '#8ab4f8';
+                                span.style.cursor = 'pointer';
+                                span.style.background = 'rgba(138,180,248,0.10)';
+                                span.style.borderRadius = '6px';
+                                span.style.padding = '1px 4px';
+                                span.style.marginLeft = '2px';
+                                span.style.marginRight = '2px';
+                                span.style.textDecoration = 'none';
+                                span.textContent = '...';
+                                if (insertAfter) {
+                                    insertAfter.after(span);
+                                } else {
+                                    keyval.appendChild(span);
+                                }
+                                // Add closing symbol after the ellipsis span
+                                const closeSpan = document.createElement('span');
+                                closeSpan.className = 'json-inline-close';
+                                closeSpan.style.color = '#8ab4f8';
+                                closeSpan.textContent = closeSymbol;
+                                span.after(closeSpan);
+                                // Make ellipsis clickable to expand
+                                span.onclick = function (ev) {
+                                    ev.stopPropagation();
+                                    if (toggle) toggle.click();
+                                };
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Panel bar expand/collapse all for right pane
+            const expandAllBtn2 = pane2.querySelector('#expandAllBtn2');
+            const collapseAllBtn2 = pane2.querySelector('#collapseAllBtn2');
+            if (expandAllBtn2) {
+                expandAllBtn2.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    setAllJsonRows(true);
+                });
+            }
+            if (collapseAllBtn2) {
+                collapseAllBtn2.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    setAllJsonRows(false);
+                });
+            }
+
+            // Expand/collapse logic for right pane
+            jsonContent.addEventListener('click', function (e) {
+                const target = e.target;
+                // Toggle expand/collapse via toggle icon
+                if (target.classList.contains('json-toggle')) {
+                    const row = target.closest('.json-row');
+                    if (!row) return;
+                    // Toggle this row's icon
+                    const isExpanded = target.textContent === 'expand_more';
+                    target.textContent = isExpanded ? 'chevron_right' : 'expand_more';
+                    // Get depth
+                    let depth = 0;
+                    const keyval = row.querySelector('.json-keyval');
+                    if (keyval) {
+                        const ml = keyval.style.marginLeft || '0px';
+                        depth = parseInt(ml) / 18;
+                    }
+                    // Always remove any previous ellipsis/close on toggle (expanding or collapsing)
+                    if (keyval) {
+                        const oldEllipsis = keyval.querySelector('.json-inline-ellipsis');
+                        if (oldEllipsis) keyval.removeChild(oldEllipsis);
+                        const oldClose = keyval.querySelector('.json-inline-close');
+                        if (oldClose) keyval.removeChild(oldClose);
+                    }
+                    // If collapsing, show collapsed inline summary for this node
+                    if (isExpanded) {
+                        // Only add when collapsing
+                        const isObj = keyval.innerHTML.includes('{');
+                        const isArr = keyval.innerHTML.includes('[');
+                        let closeSymbol = '';
+                        if (isObj) closeSymbol = '}';
+                        if (isArr) closeSymbol = ']';
+                        if (closeSymbol) {
+                            // Insert after { or [
+                            let insertAfter = null;
+                            const children = Array.from(keyval.childNodes);
+                            for (let i = 0; i < children.length; i++) {
+                                if (children[i].textContent === '{' || children[i].textContent === '[') {
+                                    insertAfter = children[i];
+                                    break;
+                                }
+                            }
+                            const span = document.createElement('span');
+                            span.className = 'json-inline-ellipsis';
+                            span.style.color = '#8ab4f8';
+                            span.style.cursor = 'pointer';
+                            span.style.background = 'rgba(138,180,248,0.10)';
+                            span.style.borderRadius = '6px';
+                            span.style.padding = '1px 4px';
+                            span.style.marginLeft = '2px';
+                            span.style.marginRight = '2px';
+                            span.style.textDecoration = 'none';
+                            span.textContent = '...';
+                            if (insertAfter) {
+                                insertAfter.after(span);
+                            } else {
+                                keyval.appendChild(span);
+                            }
+                            // Add closing symbol after the ellipsis span
+                            const closeSpan = document.createElement('span');
+                            closeSpan.className = 'json-inline-close';
+                            closeSpan.style.color = '#8ab4f8';
+                            closeSpan.textContent = closeSymbol;
+                            span.after(closeSpan);
+                            // Optionally, clicking the ellipsis expands the node
+                            span.onclick = function (ev) {
+                                ev.stopPropagation();
+                                target.click();
+                            };
+                        }
+                    }
+                    // Find closing row for this block
+                    let next = row.nextElementSibling;
+                    let closingRow = null;
+                    function showExpandedDescendants(startRow, startDepth) {
+                        let nextRow = startRow.nextElementSibling;
+                        let isExpanded = false;
+                        const isRowExpanded = startRow.textContent === 'expand_more';
+                        let isFoundClosing = false;
+
+                        while (nextRow) {
+                            let nextDepth = 0;
+                            const nextKeyval = nextRow.querySelector('.json-keyval');
+                            if (nextKeyval) {
+                                const ml = nextKeyval.style.marginLeft || '0px';
+                                nextDepth = parseInt(ml) / 18;
+                            }
+
+                            if (nextKeyval && nextDepth == startDepth && !isFoundClosing) {
+                                const txt = nextKeyval.textContent.trim()[0];
+                                if (txt && txt === '}' || txt === ']') {
+                                    nextRow.style.display = isRowExpanded ? 'none' : 'flex';
+                                }
+                                break;
+                            }
+
+                            if (nextDepth <= startDepth) break;
+                            if (nextDepth === startDepth + 1) {
+                                nextRow.style.display = 'flex';
+                                const toggle = nextRow.querySelector('.json-toggle');
+                                if (toggle) {
+                                    if (toggle.textContent === 'expand_more') {
+                                        showExpandedDescendants(nextRow, nextDepth);
+                                        isExpanded = true
+                                    } else {
+                                        isExpanded = false
+                                    }
+                                } else {
+                                    if (nextKeyval) {
+                                        const txt = nextKeyval.textContent.trim()[0];
+                                        if (txt && (txt === '}' || txt === ']')) {
+                                            nextRow.style.display = isExpanded ? 'flex' : 'none';
+                                        }
+                                    }
+                                }
+                            }
+
+                            nextRow = nextRow.nextElementSibling;
+                        }
+                    }
+
+                    let foundClosing = false;
+                    let expandList = []
+
+                    while (next) {
+                        let nextDepth = 0;
+                        const nextKeyval = next.querySelector('.json-keyval');
+                        if (nextKeyval) {
+                            const ml = nextKeyval.style.marginLeft || '0px';
+                            nextDepth = parseInt(ml) / 18;
+                        }
+                        // Improved closure detection: only match exact closing rows at correct depth
+                        if (nextKeyval && depth == nextDepth && !foundClosing) {
+                            const txt = nextKeyval.textContent.trim()[0];
+                            if (txt && txt === '}' || txt === ']') {
+                                closingRow = next;
+                                closingRow.style.display = isExpanded ? 'none' : 'flex';
+                                foundClosing = true;
+                            }
+                        }
+
+                        // Only process descendants, not siblings
+                        if (nextDepth <= depth) {
+                            break;
+                        }
+
+                        if (isExpanded) {
+                            // Collapse: hide only descendants (depth > current), not siblings
+                            next.style.display = 'none';
+                        } else {
+                            // Expand: show only direct children, and recursively show expanded descendants
+                            if (nextDepth === depth + 1) {
+                                next.style.display = 'flex';
+                                const toggle = next.querySelector('.json-toggle');
+                                if (toggle) {
+                                    if (toggle.textContent === 'expand_more') {
+                                        expandList.push(true);
+                                        showExpandedDescendants(next, nextDepth);
+                                    } else {
+                                        expandList.push(false);
+                                    }
+                                } else if (nextKeyval) {
+                                    const txt = nextKeyval.textContent.trim()[0];
+                                    if (txt && (txt === '}' || txt === ']')) {
+                                        next.style.display = expandList.pop() ? 'flex' : 'none';
+                                    }
+                                }
+                            }
+                        }
+                        next = next.nextElementSibling;
+                    }
+                    // Ensure the toggled row itself is always visible
+                    row.style.display = 'flex';
+                }
+            });
+
+            // On left node click, show JSON in right pane
+            treeContent.addEventListener('click', function (e) {
+                // Only handle clicks on .tree-row, but ignore clicks on .tree-toggle (let expand/collapse logic above handle those)
+                const row = e.target.closest('.tree-row');
+                if (!row || e.target.classList.contains('tree-toggle')) return;
+                const nodeId = row.getAttribute('data-nodeid');
+                // Highlight logic
+                const allRows = treeContent.querySelectorAll('.tree-row');
+                // If already selected, deselect and show full JSON
+                if (row.classList.contains('selected-tree-row')) {
+                    allRows.forEach(r => r.classList.remove('selected-tree-row'));
+                    window.lastJsonNode = null;
+                    jsonLineNum = 1;
+                    jsonContent.innerHTML = renderJsonNode(null, json, 0, '', true);
+                    return;
+                }
+                // Otherwise, select this row and show its JSON
+                allRows.forEach(r => r.classList.remove('selected-tree-row'));
+                row.classList.add('selected-tree-row');
+                // Traverse path to get the correct element
+                const path = nodeId.split('/').filter(Boolean);
+                curr = json.elements[path[path.length - 1]];
+                if (!curr) return; // No element found for this path
+                let el = curr;
+                window.lastJsonNode = el;
+                jsonLineNum = 1;
+                jsonContent.innerHTML = renderJsonNode(null, el, 0, '', true);
+            });
+
+            // Show root JSON by default
+            jsonLineNum = 1;
+            jsonContent.innerHTML = renderJsonNode(null, json, 0, '', true);
+
+            // Double-click: toggle expand/collapse for both viewers
+            treeContent.addEventListener('dblclick', function (e) {
+                if (true) return; // Ignore double-clicks
+                const row = e.target.closest('.tree-row');
+                if (!row) return;
+                const nodeId = row.getAttribute('data-nodeid');
+                // Toggle tree expand/collapse
+                const toggle = row.querySelector('.tree-toggle');
+                if (toggle) {
+                    toggle.click();
+                }
+                // Also toggle JSON viewer for same node
+                // Find element by nodeId path (same as click logic)
+                const path = nodeId.split('/').filter(Boolean);
+                let el = json;
+                if (path.length > 0) {
+                    let curr = json;
+                    if (json.elements && path[0] in json.elements) {
+                        curr = json.elements[path[0]];
+                    }
+                    for (let i = 1; i < path.length; i++) {
+                        if (curr.elements && curr.elements[path[i]]) {
+                            curr = curr.elements[path[i]];
+                        }
+                    }
+                    el = curr;
+                }
+                // Render JSON with toggled expand/collapse state
+                // To do this, keep a map of expanded/collapsed nodeIds for the right pane
+                if (!window.jsonExpandState) window.jsonExpandState = {};
+                const jsonState = window.jsonExpandState;
+                // Toggle state for this node
+                jsonState[nodeId] = !jsonState[nodeId];
+                // Helper to render with state
+                function renderJsonNodeWithState(key, value, depth, parentPath, expandedDefault = true) {
+                    const nodeId2 = parentPath + '/' + (key !== null ? key : 'root');
+                    let expanded = expandedDefault;
+                    if (nodeId2 in jsonState) expanded = jsonState[nodeId2];
+                    // Use original renderJsonNode logic, but pass expanded from state
+                    // Copy-paste the body of renderJsonNode, but use expanded from state
+                    const isObj = value && typeof value === 'object' && !Array.isArray(value);
+                    const isArr = Array.isArray(value);
+                    const hasChildren = (isObj && Object.keys(value).length > 0) || (isArr && value.length > 0);
+                    let html = '';
+                    html += `<div class="json-row" data-nodeid="${nodeId2}" style="display:flex;align-items:center;min-height:25px;margin-bottom:3px;">`;
+                    html += `<span class="json-fixedcol" style="display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;">`;
+                    html += `<span class="json-linenum" style="width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;">${jsonLineNum++}</span>`;
+                    if (hasChildren) {
+                        html += `<span class="json-toggle material-icons" data-nodeid="${nodeId2}" style="cursor:pointer;font-size:18px;vertical-align:middle;margin-left:2px;">${expanded ? 'expand_more' : 'chevron_right'}</span>`;
+                    } else {
+                        html += `<span style="display:inline-block;width:18px;"></span>`;
+                    }
+                    html += `</span>`;
+                    // Inline collapsed object/array with key and closing symbol
+                    if (!expanded && (isObj || isArr)) {
+                        html += `<span class="json-keyval" style="margin-left:${depth * 18}px;">`;
+                        if (key !== null) {
+                            html += `<span style="color:#fff491;">${JSON.stringify(key)}</span><span style="color:#fff;">: </span>`;
+                        }
+                        if (isObj) {
+                            html += `<span style="color:#8ab4f8;">{</span>`;
+                            html += `<span class="json-inline-ellipsis" style="color:#8ab4f8;cursor:pointer;text-decoration:underline;"> ... }</span>`;
+                        } else {
+                            html += `<span style="color:#8ab4f8;">[</span>`;
+                            html += `<span class="json-inline-ellipsis" style="color:#8ab4f8;cursor:pointer;text-decoration:underline;"> ... ]</span>`;
+                        }
+                        html += `</span></div>`;
+                        // Do NOT add a separate closing row when collapsed
+                        return html;
+                    }
+                    html += `<span class="json-keyval" style="margin-left:${depth * 18}px;">`;
+                    if (key !== null) {
+                        html += `<span style="color:#fff491;">${JSON.stringify(key)}</span><span style="color:#fff;">: </span>`;
+                    }
+                    if (isObj) {
+                        html += `<span style="color:#8ab4f8;">{</span>`;
+                    } else if (isArr) {
+                        html += `<span style="color:#8ab4f8;">[</span>`;
+                    } else {
+                        html += `<span style="color:#a1faaa;">${JSON.stringify(value)}</span>`;
+                    }
+                    html += `</span></div>`;
+                    if (expanded && hasChildren) {
+                        if (isObj) {
+                            for (const k of Object.keys(value)) {
+                                html += renderJsonNodeWithState(k, value[k], depth + 1, nodeId2);
+                            }
+                            // Closing brace row with line number
+                            html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
+                            html += `<span class=\"json-fixedcol\" style=\"display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;\">`;
+                            html += `<span class=\"json-linenum\" style=\"width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;\">${jsonLineNum++}</span>`;
+                            html += `<span style=\"display:inline-block;width:18px;\"></span>`;
+                            html += `</span>`;
+                            html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">}</span></span>`;
+                            html += `</div>`;
+                        } else if (isArr) {
+                            for (let i = 0; i < value.length; i++) {
+                                html += renderJsonNodeWithState(i, value[i], depth + 1, nodeId2);
+                            }
+                            // Closing bracket row with line number
+                            html += `<div class=\"json-row\" style=\"display:flex;align-items:center;min-height:25px;margin-bottom:3px;\">`;
+                            html += `<span class=\"json-fixedcol\" style=\"display:flex;align-items:center;justify-content:flex-start;width:48px;min-width:48px;max-width:48px;\">`;
+                            html += `<span class=\"json-linenum\" style=\"width:28px;display:inline-block;color:#6b7683;text-align:right;user-select:none;\">${jsonLineNum++}</span>`;
+                            html += `<span style=\"display:inline-block;width:18px;\"></span>`;
+                            html += `</span>`;
+                            html += `<span class=\"json-keyval\" style=\"margin-left:${depth * 18}px;\"><span style=\"color:#8ab4f8;\">]</span></span>`;
+                            html += `</div>`;
+                        }
+                    }
+                    return html;
+                }
+                jsonLineNum = 1;
+                jsonContent.innerHTML = renderJsonNodeWithState(null, el, 0, '', true);
+            });
+
+            // Restore divider drag code
+            const divider = document.getElementById('divider');
+            const splitPane = document.getElementById('splitPane');
+            const pane1New = document.getElementById('pane1');
+            const pane2New = document.getElementById('pane2');
+            let isDragging = false;
+            let mouseMoveHandler, mouseUpHandler;
+            if (divider) {
+                divider.onmousedown = function (e) {
+                    isDragging = true;
+                    document.body.style.cursor = 'col-resize';
+                    document.body.style.userSelect = 'none';
+                    mouseMoveHandler = function (e) {
+                        if (!isDragging) return;
+                        const rect = splitPane.getBoundingClientRect();
+                        let offset = e.clientX - rect.left;
+                        const min = rect.width * 0.2;
+                        const max = rect.width * 0.8;
+                        if (offset < min) offset = min;
+                        if (offset > max) offset = max;
+                        pane1New.style.flex = 'none';
+                        pane1New.style.width = offset + 'px';
+                        pane2New.style.flex = '1';
+                    };
+                    mouseUpHandler = function () {
+                        isDragging = false;
+                        document.body.style.cursor = '';
+                        document.body.style.userSelect = '';
+                        document.removeEventListener('mousemove', mouseMoveHandler);
+                        document.removeEventListener('mouseup', mouseUpHandler);
+                    };
+                    document.addEventListener('mousemove', mouseMoveHandler);
+                    document.addEventListener('mouseup', mouseUpHandler);
+                };
+            }
+        }
+
+        // Back button returns to input area
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('page2').style.display = 'none';
+                document.getElementById('input-area').style.display = 'flex';
+            });
+        }
+
+        // Drag to resize panes
+        let isDragging = false;
         const divider = document.getElementById('divider');
         const splitPane = document.getElementById('splitPane');
-        const pane1New = document.getElementById('pane1');
-        const pane2New = document.getElementById('pane2');
-        let isDragging = false;
-        let mouseMoveHandler, mouseUpHandler;
+        const pane1 = document.getElementById('pane1');
+        const pane2 = document.getElementById('pane2');
         if (divider) {
-            divider.onmousedown = function(e) {
+            divider.addEventListener('mousedown', function (e) {
                 isDragging = true;
                 document.body.style.cursor = 'col-resize';
-                document.body.style.userSelect = 'none';
-                mouseMoveHandler = function(e) {
-                    if (!isDragging) return;
-                    const rect = splitPane.getBoundingClientRect();
-                    let offset = e.clientX - rect.left;
-                    const min = rect.width * 0.2;
-                    const max = rect.width * 0.8;
-                    if (offset < min) offset = min;
-                    if (offset > max) offset = max;
-                    pane1New.style.flex = 'none';
-                    pane1New.style.width = offset + 'px';
-                    pane2New.style.flex = '1';
-                };
-                mouseUpHandler = function() {
+            });
+            document.addEventListener('mousemove', function (e) {
+                if (!isDragging) return;
+                const rect = splitPane.getBoundingClientRect();
+                let offset = e.clientX - rect.left;
+                const min = 120;
+                if (offset < min) offset = min;
+                pane1.style.flex = 'none';
+                pane1.style.width = offset + 'px';
+                pane2.style.flex = '1';
+            });
+            document.addEventListener('mouseup', function () {
+                if (isDragging) {
                     isDragging = false;
                     document.body.style.cursor = '';
-                    document.body.style.userSelect = '';
-                    document.removeEventListener('mousemove', mouseMoveHandler);
-                    document.removeEventListener('mouseup', mouseUpHandler);
-                };
-                document.addEventListener('mousemove', mouseMoveHandler);
-                document.addEventListener('mouseup', mouseUpHandler);
-            };
+                }
+            });
         }
-    }
-
-    // Back button returns to input area
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) {
-        backBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('page2').style.display = 'none';
-            document.getElementById('input-area').style.display = 'flex';
-        });
-    }
-
-    // Drag to resize panes
-    let isDragging = false;
-    const divider = document.getElementById('divider');
-    const splitPane = document.getElementById('splitPane');
-    const pane1 = document.getElementById('pane1');
-    const pane2 = document.getElementById('pane2');
-    if (divider) {
-        divider.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            document.body.style.cursor = 'col-resize';
-        });
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            const rect = splitPane.getBoundingClientRect();
-            let offset = e.clientX - rect.left;
-            const min = 120;
-            if (offset < min) offset = min;
-            pane1.style.flex = 'none';
-            pane1.style.width = offset + 'px';
-            pane2.style.flex = '1';
-        });
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                document.body.style.cursor = '';
-            }
-        });
-    }
     </script>
 </body>
+
 </html>
