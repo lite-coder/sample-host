@@ -539,8 +539,8 @@
                         let bgSrc = '';
                         let bgColor = '';
                         if (el.element.style && el.element.style.background) {
-                            if (typeof el.element.style.background.src === 'string' && el.element.style.background.src.trim()) {
-                                bgSrc = el.element.style.background.src;
+                            if (el.element.style.background.image && typeof el.element.style.background.image.src === 'string' && el.element.style.background.image.src.trim()) {
+                                bgSrc = el.element.style.background.image.src;
                             }
                             if (typeof el.element.style.background.color === 'string' && el.element.style.background.color.trim()) {
                                 bgColor = el.element.style.background.color;
